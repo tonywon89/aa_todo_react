@@ -2,7 +2,6 @@ var _todos = {};
 var _callbacks = [];
 
 var TodoStore = {
-
   changed: function() {
     for (var i = 0; i < _callbacks.length; i++) {
       _callbacks[i]();
@@ -57,7 +56,40 @@ var TodoStore = {
         self.changed();
       }
     });
+  },
+
+  destroy: function (id) {
+    if (_todos[id]) {
+      var self = this;
+      $.ajax({
+        url: "/api/todos/" + id,
+        method: "DELETE",
+        success: function (response) {
+          console.log(response);
+          delete _todos[id];
+          self.changed();
+        }
+      });
+    }
+  },
+
+  toggleDone: function (id) {
+    var self = this;
+    $.ajax({
+      url: "/api/todos/" + id,
+      method: "PATCH",
+      success: function(todo) {
+        console.log("Response toggle todo", todo);
+        _todos[id] = todo;
+        self.changed();
+      }
+    });
+  },
+
+  readTodos: function() {
+    return _todos;
   }
+
 
 };
 

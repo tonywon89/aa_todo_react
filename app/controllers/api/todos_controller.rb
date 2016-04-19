@@ -6,15 +6,23 @@ class Api::TodosController < ApplicationController
 
     if @todo.save!
       render json: @todo
-    else
-      render json: @todo.errors.full_messages
     end
   end
 
   def update
+    @todo = Todo.find(params[:id])
+    done = @todo.done ? false : true
+
+    if @todo.update!(done: done)
+      render json: @todo
+    end
+
   end
 
   def destroy
+    @todo = Todo.find(params[:id])
+    @todo.destroy!
+    render json: @todo
   end
 
   def index
