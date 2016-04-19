@@ -65,7 +65,6 @@ var TodoStore = {
         url: "/api/todos/" + id,
         method: "DELETE",
         success: function (response) {
-          console.log(response);
           delete _todos[id];
           self.changed();
         }
@@ -79,19 +78,11 @@ var TodoStore = {
       url: "/api/todos/" + id,
       method: "PATCH",
       success: function(todo) {
-        console.log("Response toggle todo", todo);
         _todos[id] = todo;
         self.changed();
       }
     });
-  },
-
-  readTodos: function() {
-    return _todos;
   }
-
-
 };
-
 
 module.exports = TodoStore;

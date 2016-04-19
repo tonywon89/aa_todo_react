@@ -1,6 +1,6 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
-TodoStore = require("./stores/todo_store");
+var TodoList = require("./components/todo_list");
 
 var Todos = React.createClass({
   render: function(){
@@ -9,5 +9,5 @@ var Todos = React.createClass({
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  ReactDOM.render(<Todos />, document.getElementById('root'));
+  ReactDOM.render(<TodoList />, document.getElementById('root'));
 });
