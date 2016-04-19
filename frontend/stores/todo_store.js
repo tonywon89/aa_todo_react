@@ -41,9 +41,22 @@ var TodoStore = {
         todos.forEach(function(todo) {
           self.addTodo(todo);
         });
+        self.changed();
       }
     });
+  },
 
+  create: function (todo) {
+    var self = this;
+    $.ajax({
+      url: "/api/todos",
+      method: "POST",
+      data: {todo: todo},
+      success: function (responseTodo) {
+        self.addTodo(responseTodo);
+        self.changed();
+      }
+    });
   }
 
 };
